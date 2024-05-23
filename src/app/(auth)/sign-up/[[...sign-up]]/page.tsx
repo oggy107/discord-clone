@@ -1,5 +1,18 @@
+"use client";
+
 import { SignUp } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import { useTheme } from "next-themes";
 
 export default function Page() {
-    return <SignUp path="/sign-up" />;
+    const { resolvedTheme } = useTheme();
+
+    return (
+        <SignUp
+            path="/sign-up"
+            appearance={{
+                baseTheme: resolvedTheme === "dark" ? dark : undefined,
+            }}
+        />
+    );
 }
