@@ -1,5 +1,4 @@
-import UserButton from "@/components/auth/UserButton";
-import ThemeToggle from "@/components/ThemeToggle";
+import InitialModal from "@/components/modals/InitialModal";
 import { db } from "@/lib/db";
 
 import { initialProfile } from "@/lib/initial-profile";
@@ -22,7 +21,7 @@ const SetupPage = async () => {
         redirect(`/servers/${server.id}`);
     }
 
-    return <div>Create A Server</div>;
+    return <InitialModal />;
 };
 
 export default SetupPage;
