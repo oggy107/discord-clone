@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import axios from "axios";
 
 import {
     Dialog,
@@ -24,6 +25,7 @@ import {
     FormControl,
 } from "../ui/form";
 import FileUpload from "@/components/FileUpload";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(5, "Name must be at least 5 characters long"),
@@ -32,6 +34,7 @@ const formSchema = z.object({
 
 const InitialModal = () => {
     const [isMounted, setIsMounted] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         setIsMounted(true);
@@ -47,8 +50,16 @@ const InitialModal = () => {
 
     const isLoading = form.formState.isSubmitting;
 
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            await axios.post("/api/servers", values);
+
+            form.reset();
+            router.refresh();
+            window.location.reload();
+        } catch (error) {
+            console.error("[INITIAL_SUBMIT]", error);
+        }
     };
 
     if (!isMounted) {
