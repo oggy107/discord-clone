@@ -5,7 +5,7 @@ import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 import { UserButtonProps } from "@clerk/types";
 
-const UserButton = ({ ...props }: UserButtonProps) => {
+const UserButton = ({ appearance, ...props }: UserButtonProps) => {
     const { resolvedTheme } = useTheme();
 
     return (
@@ -17,6 +17,7 @@ const UserButton = ({ ...props }: UserButtonProps) => {
             }}
             appearance={{
                 baseTheme: resolvedTheme === "dark" ? dark : undefined,
+                ...appearance,
             }}
             {...props}
         />
