@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+import ModalProvider from "@/components/providers/ModalProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -28,6 +29,7 @@ export default function RootLayout({
                         enableSystem={false}
                         disableTransitionOnChange
                     >
+                        <ModalProvider />
                         {children}
                     </ThemeProvider>
                 </body>
