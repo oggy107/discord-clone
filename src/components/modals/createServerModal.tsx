@@ -55,6 +55,7 @@ const CreateServerModal = () => {
 
             form.reset();
             router.refresh();
+            serverModal.onClose();
         } catch (error) {
             console.error("[CREATE_SERVER_SUBMIT]", error);
         }
