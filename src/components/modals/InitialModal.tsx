@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 import {
     Dialog,
@@ -14,8 +16,6 @@ import {
     DialogTitle,
     DialogFooter,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import {
     Form,
     FormField,
@@ -23,9 +23,10 @@ import {
     FormLabel,
     FormMessage,
     FormControl,
-} from "../ui/form";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
-import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
     name: z.string().min(5, "Name must be at least 5 characters long"),
@@ -127,7 +128,11 @@ const InitialModal = () => {
                                 variant="primary"
                                 disabled={isLoading}
                             >
-                                Create
+                                {isLoading ? (
+                                    <Loader2 className="animate-spin" />
+                                ) : (
+                                    "Create"
+                                )}
                             </Button>
                         </DialogFooter>
                     </form>
