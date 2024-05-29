@@ -4,6 +4,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
+import { useEffect } from "react";
+import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import {
     Dialog,
@@ -13,8 +16,6 @@ import {
     DialogTitle,
     DialogFooter,
 } from "@/components/ui/dialog";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import {
     Form,
     FormField,
@@ -23,11 +24,10 @@ import {
     FormMessage,
     FormControl,
 } from "../ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import FileUpload from "@/components/FileUpload";
-import { useRouter } from "next/navigation";
 import useModal from "@/hooks/use-modal-store";
-import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
     name: z.string().min(5, "Name must be at least 5 characters long"),
