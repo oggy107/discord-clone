@@ -16,11 +16,11 @@ import {
 import { Button } from "@/components/ui/button";
 import useModal from "@/hooks/use-modal-store";
 
-const LeaveServerModal = () => {
+const DeleteServerModal = () => {
     const modal = useModal();
     const router = useRouter();
 
-    const isModalOpen = modal.type === "leaveServer" && modal.isOpen;
+    const isModalOpen = modal.type === "deleteServer" && modal.isOpen;
     const { server } = modal.data;
 
     const [isLoading, setIsLoading] = useState(false);
@@ -29,13 +29,13 @@ const LeaveServerModal = () => {
         try {
             setIsLoading(true);
 
-            await axios.patch(`/api/servers/${server?.id}/leave`);
+            await axios.delete(`/api/servers/${server?.id}`);
 
             modal.onClose();
             router.refresh();
             router.push("/");
         } catch (error) {
-            console.error("[LEAVE_SERVER]", error);
+            console.error("[DELETE_SERVER]", error);
         } finally {
             setIsLoading(false);
         }
@@ -46,14 +46,14 @@ const LeaveServerModal = () => {
             <DialogContent className="bg-white text-black rounded-lg">
                 <DialogHeader>
                     <DialogTitle className="text-center font-bold text-2xl">
-                        Leave Server
+                        Delete Server
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Are you sure you want to leave{" "}
+                        Are you sure you want to do this? <br />
                         <span className="font-semibold text-indigo-500">
                             {server?.name}
-                        </span>
-                        ?
+                        </span>{" "}
+                        will be permanently deleted
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
@@ -84,4 +84,4 @@ const LeaveServerModal = () => {
     );
 };
 
-export default LeaveServerModal;
+export default DeleteServerModal;
