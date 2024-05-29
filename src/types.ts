@@ -4,4 +4,9 @@ export type ServerWithMembersWithProfiles = Server & {
     members: (Member & { profile: Profile })[];
 };
 
-export type ModalType = "createServer" | "invite" | "editServer" | "members";
+export type ModalType =
+    | "createServer"
+    | "invite"
+    | "editServer"
+    | "members"
+    | "createChannel";
