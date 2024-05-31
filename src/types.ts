@@ -12,7 +12,8 @@ export type ModalType =
     | "createChannel"
     | "leaveServer"
     | "deleteServer"
-    | "deleteChannel";
+    | "deleteChannel"
+    | "editChannel";
 
 export type SearchType = "member" | "channel";
 export type SectionType = "members" | "channels";
