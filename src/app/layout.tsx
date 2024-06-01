@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
-import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "next-themes";
+import { SocketProvider } from "@/components/providers/SocketProvider";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -29,8 +30,10 @@ export default function RootLayout({
                         enableSystem={false}
                         disableTransitionOnChange
                     >
-                        <ModalProvider />
-                        {children}
+                        <SocketProvider>
+                            <ModalProvider />
+                            {children}
+                        </SocketProvider>
                     </ThemeProvider>
                 </body>
             </html>
