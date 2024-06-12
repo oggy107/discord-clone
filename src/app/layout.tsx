@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
-import { SocketProvider } from "@/components/providers/SocketProvider";
+import { PusherProvider } from "@/components/providers/PusherProvider";
 import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,10 +30,10 @@ export default function RootLayout({
                         enableSystem={false}
                         disableTransitionOnChange
                     >
-                        <SocketProvider>
+                        <PusherProvider>
                             <ModalProvider />
                             {children}
-                        </SocketProvider>
+                        </PusherProvider>
                     </ThemeProvider>
                 </body>
             </html>

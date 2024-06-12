@@ -1,16 +1,30 @@
 "use client";
 
-import { useSocket } from "@/components/providers/SocketProvider";
+import { usePusherClient } from "@/components/providers/PusherProvider";
 import { Badge } from "@/components/ui/badge";
 
 const SocketIndicator = () => {
-    const { isConnected } = useSocket();
+    const { isConnected } = usePusherClient();
 
     if (!isConnected) {
-        return <Badge variant="destructive">Disconnected</Badge>;
+        return (
+            <Badge
+                variant="outline"
+                className="bg-yellow-600 text-white border-none"
+            >
+                Disconnected
+            </Badge>
+        );
     }
 
-    return <Badge variant="outline">connected</Badge>;
+    return (
+        <Badge
+            variant="outline"
+            className="bg-emerald-600 text-white border-none"
+        >
+            connected
+        </Badge>
+    );
 };
 
 export default SocketIndicator;
