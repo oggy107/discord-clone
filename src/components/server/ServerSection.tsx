@@ -34,25 +34,25 @@ const ServerSection = ({
                 {label}
             </p>
             {role !== MemberRole.GUEST && sectionType === "channels" && (
-                <ActionTooltip label="create channel" side="top">
-                    <button
+                <ActionTooltip label="Create channel" side="top">
+                    <div
                         onClick={() =>
                             modal.onOpen("createChannel", { channelType })
                         }
                         className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                     >
                         <Plus className="w-4 h-4" />
-                    </button>
+                    </div>
                 </ActionTooltip>
             )}
             {role === MemberRole.ADMIN && sectionType === "members" && (
-                <ActionTooltip label="add member" side="top">
-                    <button
+                <ActionTooltip label="Manage members" side="top">
+                    <div
                         onClick={() => modal.onOpen("members", { server })}
                         className="text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                     >
                         <Settings className="w-4 h-4" />
-                    </button>
+                    </div>
                 </ActionTooltip>
             )}
         </div>

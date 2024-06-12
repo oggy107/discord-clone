@@ -39,7 +39,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
     };
 
     return (
-        <button
+        <div
             onClick={onClick}
             className={cn(
                 "group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition mb-1",
@@ -76,7 +76,7 @@ const ServerChannel = ({ channel, server, role }: ServerChannelProps) => {
             {channel.name === "general" && (
                 <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400" />
             )}
-        </button>
+        </div>
     );
 };
 
