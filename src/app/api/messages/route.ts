@@ -91,8 +91,6 @@ export async function POST(req: Request) {
             message
         );
 
-        console.log("hell yeah");
-
         return Response.json(message);
     } catch (error) {
         console.error("[MESSAGES_POST]", error);
