@@ -6,6 +6,7 @@ import qs from "query-string";
 import axios from "axios";
 import { Plus, Smile } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
@@ -14,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { generateChannelKey } from "@/lib/utils";
 import { PusherEvent } from "@/types";
 import useModal from "@/hooks/use-modal-store";
+import EmojiPicker from "@/components/EmojiPicker";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -28,6 +30,7 @@ const formSchema = z.object({
 
 const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
     const modal = useModal();
+    const router = useRouter();
     const { pusher } = usePusherClient();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -49,8 +52,7 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
             await axios.post(url, values);
 
             form.reset();
-            // router.refresh();
-            // modal.onClose();
+            router.refresh();
         } catch (error) {
             console.error("[CHANNEL_MESSAGE]", error);
         }
@@ -62,6 +64,10 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
             .bind(PusherEvent.MESSAGE, (data: any) => {
                 console.log("pusher:", data);
             });
+
+        return () => {
+            channel?.unsubscribe();
+        };
     }, [pusher, query.channelId]);
 
     return (
@@ -97,7 +103,13 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
                                         {...field}
                                     />
                                     <div className="absolute top-7 right-8">
-                                        <Smile />
+                                        <EmojiPicker
+                                            onChange={(emoji: string) =>
+                                                field.onChange(
+                                                    `${field.value}${emoji}`
+                                                )
+                                            }
+                                        />
                                     </div>
                                 </div>
                             </FormControl>
