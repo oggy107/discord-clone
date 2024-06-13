@@ -4,12 +4,12 @@ import { createContext, useContext, useEffect, useState } from "react";
 import Pusher from "pusher-js";
 
 type PusherContextType = {
-    client: Pusher | null;
+    pusher: Pusher | null;
     isConnected: boolean;
 };
 
 const PusherContext = createContext<PusherContextType>({
-    client: null,
+    pusher: null,
     isConnected: false,
 });
 
@@ -18,24 +18,24 @@ export const usePusherClient = () => {
 };
 
 export const PusherProvider = ({ children }: { children: React.ReactNode }) => {
-    const [client, setClient] = useState<Pusher | null>(null);
+    const [pusher, setPusher] = useState<Pusher | null>(null);
     const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
-        const pusherClient = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
+        const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
             cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
         });
 
-        pusherClient.bind("connected", () => {
+        pusher.bind("connected", () => {
             console.log("yoho");
             setIsConnected(true);
         });
 
-        pusherClient.bind("disconnected", () => {
+        pusher.bind("disconnected", () => {
             setIsConnected(false);
         });
 
-        pusherClient.connection.bind("state_change", function (state: any) {
+        pusher.connection.bind("state_change", function (state: any) {
             if (state.current === "connected") {
                 setIsConnected(true);
             } else {
@@ -43,11 +43,11 @@ export const PusherProvider = ({ children }: { children: React.ReactNode }) => {
             }
         });
 
-        pusherClient.connection.bind("error", function (err: any) {
+        pusher.connection.bind("error", function (err: any) {
             console.error("[PUSHER_CLIENT_CONNECTION]", err);
         });
 
-        setClient(pusherClient);
+        setPusher(pusher);
 
         // return () => {
         //     pusherClient.disconnect();
@@ -55,7 +55,7 @@ export const PusherProvider = ({ children }: { children: React.ReactNode }) => {
     }, []);
 
     return (
-        <PusherContext.Provider value={{ client, isConnected }}>
+        <PusherContext.Provider value={{ pusher, isConnected }}>
             {children}
         </PusherContext.Provider>
     );

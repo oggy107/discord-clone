@@ -33,3 +33,7 @@ export type NextApiResponseServerIo = NextApiResponse & {
         };
     };
 };
+
+export enum PusherEvent {
+    MESSAGE = "message",
+}

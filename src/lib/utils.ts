@@ -8,3 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export type ExtractProps<T> = T extends (props: infer P) => JSX.Element
     ? P
     : never;
+
+export const generateChannelKey = (channleId: string) => {
+    return `chat;${channleId};messages`;
+};
