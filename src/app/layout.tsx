@@ -5,6 +5,7 @@ import "./globals.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
 import ThemeProvider from "@/components/providers/ThemeProvider";
+import QueryProvider from "@/components/providers/QueryProvider";
 import { PusherProvider } from "@/components/providers/PusherProvider";
 import { cn } from "@/lib/utils";
 
@@ -27,7 +28,7 @@ export default function RootLayout({
                     <ThemeProvider>
                         <PusherProvider>
                             <ModalProvider />
-                            {children}
+                            <QueryProvider>{children}</QueryProvider>
                         </PusherProvider>
                     </ThemeProvider>
                 </body>
