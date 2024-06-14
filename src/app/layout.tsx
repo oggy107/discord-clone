@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from "@clerk/nextjs";
-import { ThemeProvider } from "next-themes";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 import ModalProvider from "@/components/providers/ModalProvider";
+import ThemeProvider from "@/components/providers/ThemeProvider";
 import { PusherProvider } from "@/components/providers/PusherProvider";
 import { cn } from "@/lib/utils";
 
@@ -24,12 +24,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en" suppressHydrationWarning>
                 <body className={cn(inter.className, "dark:bg-[#313338]")}>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="dark"
-                        enableSystem={false}
-                        disableTransitionOnChange
-                    >
+                    <ThemeProvider>
                         <PusherProvider>
                             <ModalProvider />
                             {children}
