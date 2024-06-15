@@ -9,6 +9,10 @@ export type ExtractProps<T> = T extends (props: infer P) => JSX.Element
     ? P
     : never;
 
-export const generateChannelKey = (channleId: string) => {
+export const generateChannelKeyMessage = (channleId: string) => {
     return `chat;${channleId};messages`;
+};
+
+export const generateChannelKeyMessageUpdate = (channleId: string) => {
+    return `chat;${channleId};messages;update`;
 };

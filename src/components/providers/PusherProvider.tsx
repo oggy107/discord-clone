@@ -26,20 +26,11 @@ export const PusherProvider = ({ children }: { children: React.ReactNode }) => {
             cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER!,
         });
 
-        pusher.bind("connected", () => {
-            console.log("yoho");
-            setIsConnected(true);
-        });
-
-        pusher.bind("disconnected", () => {
-            setIsConnected(false);
-        });
-
         pusher.connection.bind("state_change", function (state: any) {
             if (state.current === "connected") {
                 setIsConnected(true);
             } else {
-                console.error("[PUSHER_CLIENT_CONNECTION]", state);
+                console.info("[PUSHER_CLIENT_CONNECTION]", state);
             }
         });
 

@@ -4,7 +4,7 @@ import { getPusherInstance } from "@/lib/pusher";
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 import { PusherEvent } from "@/types";
-import { generateChannelKey } from "@/lib/utils";
+import { generateChannelKeyMessage } from "@/lib/utils";
 
 const pusher = getPusherInstance();
 
@@ -86,7 +86,7 @@ export async function POST(req: Request) {
         });
 
         await pusher.trigger(
-            generateChannelKey(channelId),
+            generateChannelKeyMessage(channelId),
             PusherEvent.MESSAGE,
             message
         );

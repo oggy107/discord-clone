@@ -12,8 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField, FormItem, FormControl } from "@/components/ui/form";
 import { usePusherClient } from "@/components/providers/PusherProvider";
 import { Input } from "@/components/ui/input";
-import { generateChannelKey } from "@/lib/utils";
-import { PusherEvent } from "@/types";
 import useModal from "@/hooks/use-modal-store";
 import EmojiPicker from "@/components/EmojiPicker";
 
@@ -31,7 +29,6 @@ const formSchema = z.object({
 const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
     const modal = useModal();
     const router = useRouter();
-    const { pusher } = usePusherClient();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -57,18 +54,6 @@ const ChatInput = ({ apiUrl, name, query, type }: ChatInputProps) => {
             console.error("[CHANNEL_MESSAGE]", error);
         }
     };
-
-    useEffect(() => {
-        const channel = pusher
-            ?.subscribe(generateChannelKey(query.channelId))
-            .bind(PusherEvent.MESSAGE, (data: any) => {
-                console.log("pusher:", data);
-            });
-
-        return () => {
-            channel?.unsubscribe();
-        };
-    }, [pusher, query.channelId]);
 
     return (
         <Form {...form}>
