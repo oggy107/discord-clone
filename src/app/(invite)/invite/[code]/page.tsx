@@ -8,7 +8,9 @@ const InviteCodePage = async ({ params }: { params: { code: string } }) => {
     const profile = await currentProfile();
 
     if (!profile) {
-        return auth().redirectToSignIn();
+        return auth().redirectToSignIn({
+            returnBackUrl: "/invite/" + params.code,
+        });
     }
 
     if (!params.code) {
